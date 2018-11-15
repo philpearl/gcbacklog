@@ -9,7 +9,7 @@ import (
 
 func main() {
 	// A huge allocation to give the GC work to do
-	lotsOf := new([15e8]*int)
+	lotsOf := make([]*int, 15e8)
 	fmt.Println("Background GC work generated")
 	// Force a GC to set a baseline we can see if we set GODEBUG=gctrace=1
 	runtime.GC()
@@ -33,7 +33,7 @@ func main() {
 
 func work() {
 	for {
-		work := new([1e6]*int)
+		work := make([]*int, 1e6)
 		if f := factorial(20); f != 2432902008176640000 {
 			fmt.Println(f)
 			os.Exit(1)
